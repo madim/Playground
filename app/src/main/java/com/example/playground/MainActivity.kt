@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.playground.cache.DefaultDiskCache
 import com.example.playground.downloader.DefaultFileDownloader
 import com.example.playground.downloader.FileDownloader
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
 import java.io.File
 
 private const val DOWNLOAD_URL = "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4"
@@ -16,7 +14,6 @@ private const val MAX_CACHE_SIZE: Long = 4 * 1024 * 1024
 
 class MainActivity : AppCompatActivity(), FileDownloader.Callback {
 
-    private val scope = MainScope()
     private val simpleMediaPlayer = SimpleMediaPlayer()
 
     private lateinit var downloader: FileDownloader
@@ -40,7 +37,6 @@ class MainActivity : AppCompatActivity(), FileDownloader.Callback {
     override fun onDestroy() {
         super.onDestroy()
         simpleMediaPlayer.release()
-        scope.cancel()
     }
 
     override fun onDownloadCompleted(file: File) {

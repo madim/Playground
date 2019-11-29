@@ -1,6 +1,5 @@
 package com.example.playground.downloader
 
-import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import com.example.playground.cache.DataCacheWriter
@@ -17,7 +16,6 @@ class DefaultFileDownloader(
     private val okHttpClient = OkHttpClient()
     private val mainThreadHandler = Handler(Looper.getMainLooper())
 
-    @SuppressLint("VisibleForTests")
     private val encoder = StreamEncoder()
 
     override fun enqueue(request: FileDownloader.Request) {
