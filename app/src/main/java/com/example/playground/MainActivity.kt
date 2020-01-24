@@ -4,10 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.WebView
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playground.webview.MyAdapter
+import com.example.playground.webview.WebViewActivity
+import com.example.playground.webview.WebViewItem
 
 private const val TAG = "MainActivity"
 
@@ -49,12 +50,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun list(): List<WebViewItem> {
         return listOf(
-            WebViewItem("https://www.google.com/", "16:9"),
-            WebViewItem("https://stackoverflow.com/", "1:1"),
-            WebViewItem("https://github.com/", "2:1"),
-            WebViewItem("https://www.wikipedia.org/", "3:1"),
-            WebViewItem("https://www.reddit.com/", "4:6"),
-            WebViewItem("https://www.instagram.com/", "1.85:1")
+            WebViewItem(
+                "https://www.google.com/",
+                "16:9"
+            ),
+            WebViewItem(
+                "https://stackoverflow.com/",
+                "1:1"
+            ),
+            WebViewItem(
+                "https://github.com/",
+                "2:1"
+            ),
+            WebViewItem(
+                "https://www.wikipedia.org/",
+                "3:1"
+            ),
+            WebViewItem(
+                "https://www.reddit.com/",
+                "4:6"
+            ),
+            WebViewItem(
+                "https://www.instagram.com/",
+                "1.85:1"
+            )
         )
     }
 }

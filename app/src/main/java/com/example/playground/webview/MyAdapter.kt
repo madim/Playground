@@ -1,4 +1,4 @@
-package com.example.playground
+package com.example.playground.webview
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +9,13 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playground.R
 
 class MyAdapter(
     private val onClick: (url: String) -> Unit
-) : ListAdapter<WebViewItem, MyViewHolder>(MyDiffCallback) {
+) : ListAdapter<WebViewItem, MyViewHolder>(
+    MyDiffCallback
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView =

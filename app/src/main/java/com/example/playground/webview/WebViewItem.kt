@@ -1,4 +1,4 @@
-package com.example.playground
+package com.example.playground.webview
 
 data class WebViewItem(
     val url: String,

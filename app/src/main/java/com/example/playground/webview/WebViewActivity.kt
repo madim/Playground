@@ -1,9 +1,10 @@
-package com.example.playground
+package com.example.playground.webview
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.playground.R
 
 class WebViewActivity : AppCompatActivity() {
 
