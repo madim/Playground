@@ -1,55 +1,60 @@
 package com.example.playground
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.webkit.WebView
 import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.playground.cache.DefaultDiskCache
-import com.example.playground.downloader.DefaultFileDownloader
-import com.example.playground.downloader.FileDownloader
-import java.io.File
+import androidx.recyclerview.widget.RecyclerView
 
-private const val DOWNLOAD_URL = "https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp4"
-private const val MAX_CACHE_SIZE: Long = 4 * 1024 * 1024
+private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity(), FileDownloader.Callback {
-
-    private val simpleMediaPlayer = SimpleMediaPlayer()
-
-    private lateinit var downloader: FileDownloader
-
-    private lateinit var downloadButton: Button
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val diskCache = DefaultDiskCache.create(File(cacheDir, "temp_cache"), MAX_CACHE_SIZE)
-        downloader = DefaultFileDownloader(this, diskCache)
+        val list: RecyclerView = findViewById(R.id.list)
+        val myAdapter = MyAdapter { url ->
+            openWebView(url)
+        }
+        list.adapter = myAdapter
 
+        myAdapter.submitList(list())
+    }
 
-        downloadButton = findViewById(R.id.downloadButton)
-        downloadButton.setOnClickListener {
-            downloadFile()
+    private fun openWebView(url: String) {
+        val intent = Intent(this, WebViewActivity::class.java)
+        intent.putExtra("url", url)
+
+        startActivity(intent)
+    }
+
+    fun onClick(view: View) {
+        try {
+            runShellCommand("setprop debug.firebase.analytics.app kz.kolesa.dev")
+        } catch (e: Exception) {
+            Log.d(TAG, e.message, e)
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        simpleMediaPlayer.release()
+    @Throws(Exception::class)
+    private fun runShellCommand(command: String) {
+        val process = Runtime.getRuntime().exec(command)
+        process.waitFor()
     }
 
-    override fun onDownloadCompleted(file: File) {
-        simpleMediaPlayer.play(file)
-    }
-
-    override fun onDownloadFailed() {
-        Toast.makeText(this, "Download failed", Toast.LENGTH_LONG).show()
-    }
-
-    private fun downloadFile() {
-        val request = FileDownloader.Request(DOWNLOAD_URL, "ff-16b-2c-44100hz")
-
-        downloader.enqueue(request)
+    private fun list(): List<WebViewItem> {
+        return listOf(
+            WebViewItem("https://www.google.com/", "16:9"),
+            WebViewItem("https://stackoverflow.com/", "1:1"),
+            WebViewItem("https://github.com/", "2:1"),
+            WebViewItem("https://www.wikipedia.org/", "3:1"),
+            WebViewItem("https://www.reddit.com/", "4:6"),
+            WebViewItem("https://www.instagram.com/", "1.85:1")
+        )
     }
 }
