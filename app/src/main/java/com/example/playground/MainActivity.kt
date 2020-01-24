@@ -50,30 +50,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun list(): List<WebViewItem> {
         return listOf(
-            WebViewItem(
-                "https://www.google.com/",
-                "16:9"
-            ),
-            WebViewItem(
-                "https://stackoverflow.com/",
-                "1:1"
-            ),
-            WebViewItem(
-                "https://github.com/",
-                "2:1"
-            ),
-            WebViewItem(
-                "https://www.wikipedia.org/",
-                "3:1"
-            ),
-            WebViewItem(
-                "https://www.reddit.com/",
-                "4:6"
-            ),
-            WebViewItem(
-                "https://www.instagram.com/",
-                "1.85:1"
-            )
+            WebViewItem("https://www.google.com/", 16f, 9f),
+            WebViewItem("https://stackoverflow.com/", 1f, 1f),
+            WebViewItem("https://github.com/", 2f, 1f),
+            WebViewItem("https://www.wikipedia.org/", 3f, 1f),
+            WebViewItem("https://www.reddit.com/", 4f, 6f),
+            WebViewItem("https://www.instagram.com/", 1.85f, 1f)
         )
     }
 }
