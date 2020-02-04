@@ -13,7 +13,7 @@ class WebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_webview)
 
-        val webView: WebView = findViewById(R.id.item_webview)
+        val webView: WebView = findViewById(R.id.webview)
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
 

@@ -5,9 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,43 +24,47 @@ class MyAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.setOnClickListener {
-            onClick(getItem(holder.adapterPosition).url)
-        }
     }
 
     override fun onViewRecycled(holder: MyViewHolder) {
         super.onViewRecycled(holder)
-        holder.itemView.setOnClickListener(null)
+        holder.unbind()
     }
 }
 
 class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private val constraintSet = ConstraintSet()
-    private val webView: WebView = itemView.findViewById(R.id.item_webview)
-    private val constraintLayout: ConstraintLayout = itemView.findViewById(R.id.item_constraint_layout)
+    private val placeholder: FrameLayout = itemView.findViewById(R.id.placeholder)
+    private val webView: WebView = itemView.findViewById(R.id.webview)
 
-    private val accentColor = ContextCompat.getColor(itemView.context, R.color.colorAccent)
+    init {
+        enableWebViewCache()
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+
+                webView.visibility = View.VISIBLE
+                placeholder.visibility = View.INVISIBLE
+            }
+        }
+    }
 
     fun bind(webViewItem: WebViewItem) {
+        webView.visibility = View.INVISIBLE
+        placeholder.visibility = View.VISIBLE
+
         val (url, width, height) = webViewItem
         webView.loadUrl(url)
-        webView.webViewClient = webViewClient
-        setAspectRatio(ratio = "$width:$height")
     }
 
-    private fun setAspectRatio(ratio: String) {
-        constraintSet.clone(constraintLayout)
-        constraintSet.setDimensionRatio(webView.id, ratio)
-        constraintSet.applyTo(constraintLayout)
+    fun unbind() {
+        webView.loadUrl("about:blank")
     }
 
-    private val webViewClient = object : WebViewClient() {
-        override fun onPageFinished(view: WebView?, url: String?) {
-            super.onPageFinished(view, url)
-            constraintLayout.setBackgroundColor(accentColor)
-        }
+    private fun enableWebViewCache() {
+        val cachePath = itemView.context.cacheDir.absolutePath
+        webView.settings.setAppCachePath(cachePath)
+        webView.settings.setAppCacheEnabled(true)
     }
 }
 

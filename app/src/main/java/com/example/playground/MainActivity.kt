@@ -51,10 +51,22 @@ class MainActivity : AppCompatActivity() {
     private fun list(): List<WebViewItem> {
         return listOf(
             WebViewItem("https://www.google.com/", 16f, 9f),
+            WebViewItem("https://github.com/madim/Playground", 16f, 9f),
+            WebViewItem("https://github.com/open-toast/protokt", 16f, 9f),
+            WebViewItem("https://github.com/google/truth", 16f, 9f),
+            WebViewItem("https://github.com/atonamy/store4-issue", 16f, 9f),
+            WebViewItem("https://github.com/felipecsl/ktnes", 16f, 9f),
+            WebViewItem("https://github.com/budparr/gohugo-theme-ananke", 16f, 9f),
             WebViewItem("https://stackoverflow.com/", 1f, 1f),
             WebViewItem("https://github.com/", 2f, 1f),
             WebViewItem("https://www.wikipedia.org/", 3f, 1f),
-            WebViewItem("https://www.reddit.com/", 4f, 6f),
+            WebViewItem("https://en.wikipedia.org/wiki/Pacific_swift", 4f, 6f),
+            WebViewItem("https://en.wikipedia.org/wiki/Bird_migration", 4f, 6f),
+            WebViewItem("https://en.wikipedia.org/wiki/Flyway", 4f, 6f),
+            WebViewItem("https://en.wikipedia.org/wiki/Ocean", 4f, 6f),
+            WebViewItem("https://en.wikipedia.org/wiki/World_Ocean", 4f, 6f),
+            WebViewItem("https://en.wikipedia.org/wiki/Continent", 4f, 6f),
+            WebViewItem("https://en.wikipedia.org/wiki/Australia_(continent)", 4f, 6f),
             WebViewItem("https://www.instagram.com/", 1.85f, 1f)
         )
     }
