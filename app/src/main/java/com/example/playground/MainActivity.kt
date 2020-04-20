@@ -12,9 +12,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val linearLayout: LinearLayout = findViewById(R.id.linearLayout)
-        val customView = CustomView(this)
-        customView.id = R.id.custom_view
-        linearLayout.addView(customView)
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, TempFragment())
+                .commit()
+        }
     }
 }

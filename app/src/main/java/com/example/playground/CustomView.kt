@@ -3,6 +3,7 @@ package com.example.playground
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -10,12 +11,10 @@ import android.widget.TextView
 
 class CustomView(
     context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    attrs: AttributeSet? = null
 ) : FrameLayout(
     context,
-    attrs,
-    defStyleAttr
+    attrs
 ), View.OnClickListener {
 
     private val expandListText: TextView
@@ -43,7 +42,7 @@ class CustomView(
 
     override fun onRestoreInstanceState(state: Parcelable?) {
         val listState = state as? ListState
-        super.onRestoreInstanceState(state)
+        super.onRestoreInstanceState(listState?.superState)
 
         listIsExpanded = listState?.listIsExpanded ?: false
         updateButtonState()
