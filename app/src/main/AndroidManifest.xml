@@ -3,6 +3,7 @@
     package="com.example.playground">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--
     Allows Glide to monitor connectivity status and restart failed requests if users go from a
     a disconnected to a connected network state.
@@ -32,6 +33,16 @@
         <meta-data
             android:name="com.example.imageloader.AppGlideModule"
             android:value="GlideModule" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>
